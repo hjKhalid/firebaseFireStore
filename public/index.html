@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to Firebase Hosting</title>
+
+  <!-- update the version number as needed -->
+  <!-- <script defer src="/__/firebase/10.7.2/firebase-app-compat.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <!-- <script defer src="/__/firebase/10.7.2/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/10.7.2/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/10.7.2/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/10.7.2/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/10.7.2/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/10.7.2/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/10.7.2/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/10.7.2/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/10.7.2/firebase-performance-compat.js"></script> -->
+  <!-- 
+      initialize the SDK after all desired features are loaded, set useEmulator to false
+      to avoid connecting the SDK to running emulators.
+    -->
+  <!-- Firebase SDK scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"></script>
+
+
+  <script type="module" src="script.js"></script>
+
+
+  <style media="screen">
+    body {
+      background: #ECEFF1;
+      color: rgba(0, 0, 0, 0.87);
+      font-family: Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    #message {
+      background: white;
+      max-width: 360px;
+      margin: 100px auto 16px;
+      padding: 32px 24px;
+      border-radius: 3px;
+    }
+
+    #message h2 {
+      color: #ffa100;
+      font-weight: bold;
+      font-size: 16px;
+      margin: 0 0 8px;
+    }
+
+    #message h1 {
+      font-size: 22px;
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.6);
+      margin: 0 0 16px;
+    }
+
+    #message p {
+      line-height: 140%;
+      margin: 16px 0 24px;
+      font-size: 14px;
+    }
+
+    #message a {
+      display: block;
+      text-align: center;
+      background: #039be5;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: white;
+      padding: 16px;
+      border-radius: 4px;
+    }
+
+    #message,
+    #message a {
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    }
+
+    #load {
+      color: rgba(0, 0, 0, 0.4);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 600px) {
+
+      body,
+      #message {
+        margin-top: 0;
+        background: white;
+        box-shadow: none;
+      }
+
+      body {
+        border-top: 16px solid #ffa100;
+      }
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    /* Other CSS styles */
+    #header {
+      background-color: #abd0fd;
+      /* Light grey background */
+      padding: 10px;
+      text-align: right;
+      /* Aligns the profile icon to the right */
+    }
+
+    #profileIcon {
+      display: inline-block;
+      position: relative;
+      /* Allows absolute positioning of the logout menu within the icon */
+      cursor: pointer;
+      /* Changes the cursor to indicate clickable area */
+    }
+
+    #logoutMenu {
+      display: none;
+      /* Initially hidden */
+      position: absolute;
+      right: 0;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 5px;
+    }
+
+
+
+    #addFieldContainer {
+      border-bottom: 1px solid #ccc;
+      /* A line to separate the add field area from the rest */
+      padding-bottom: 10px;
+      /* Spacing below the add field area */
+      margin-bottom: 20px;
+      /* Spacing between the add field area and the rest of the document fields */
+      display: none;
+    }
+
+
+    #docContent {
+      background: #fff;
+      margin: 20px 0;
+      padding: 20px;
+      min-height: 150px;
+      /* Adjust based on your needs */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* Optional: adds shadow for depth */
+    }
+
+    #addressBar {
+      background: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #firestorePath {
+      padding: 10px;
+      margin-right: 10px;
+      width: calc(100% - 120px);
+      /* Adjust width as needed */
+      box-sizing: border-box;
+    }
+
+    #goButton {
+      padding: 10px 20px;
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    #firestoreContent {
+      background-color: #fff;
+      /* Light grey background */
+      border: 1px solid #ccc;
+      /* Grey border */
+      border-radius: 5px;
+      /* Rounded corners */
+      padding: 20px;
+      /* Padding inside the div */
+      margin: 20px;
+      /* Margin above and below the div */
+      min-height: 150px;
+      /* Minimum height */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      /* Optional: adds shadow for depth */
+      overflow-y: auto;
+      /* Enables vertical scrolling */
+      color: #333;
+      /* Text color */
+    }
+
+    button {
+      padding: 10px;
+      margin: 5px;
+      background-color: #4285F4;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: #ccc;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      margin: 5px;
+      width: calc(100% - 22px);
+      /* Adjust width as needed */
+      box-sizing: border-box;
+    }
+
+    textarea {
+      width: calc(100% - 22px);
+      /* Adjust width as needed */
+      height: 100px;
+      padding: 10px;
+      box-sizing: border-box;
+      margin: 5px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- <div id="message">
+    <h2>Welcome</h2>
+    <h1>Firebase Hosting Setup Complete</h1>
+    <p>You're seeing this because you've successfully setup Firebase Hosting. Now it's time to go build something
+      extraordinary!</p>
+    <a target="_blank" href="https://firebase.google.com/docs/hosting/">Open Hosting Documentation</a>
+  </div>
+  <p id="load">Firebase SDK Loading&hellip;</p> -->
+  <div id="header">
+    <div id="profileIcon">
+      <i class="fas fa-user-circle" style="font-size:24px;"></i>
+      <div id="logoutMenu" style="display:none;">
+        <button id="logoutButton">Logout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Bar for inputting Firestore path -->
+  <div id="addressBar">
+    <p>Enter the PATH to the Firestore Document or Collection you wish to view. <br>For example:
+      <code>users/name@gmail.com</code>
+    </p>
+    <input type="text" id="firestorePath" placeholder="Enter the Firestore path">
+    <button id="goButton">Go</button>
+  </div>
+
+  <!-- Unified Firestore Content Area -->
+  <div id="firestoreContent">
+    <!-- Content for Firestore document or collection will be dynamically inserted here -->
+  </div>
+
+  <!-- Dynamic Action Buttons Area -->
+  <div id="dynamicFirestoreButtons">
+    <!-- Action buttons like 'Add Field', 'Count Documents' will be dynamically inserted here -->
+  </div>
+
+  <!-- Action Buttons for Document or Collection of Firestore -->
+  <!-- We hide this buttons, and let Javascript control their visibility -->
+  <div id="buttonsForFirestore" style="display: none;">
+    <button id="deleteDoc">Delete Document</button>
+    <button id="copyDoc">Copy Document as JSON</button>
+    <button id="pasteDoc">Paste JSON to document</button>
+    <button id="countDocs">Count Collection's Documents</button>
+  </div>
+
+  <!-- Hidden input for pasting JSON -->
+  <input type="hidden" id="jsonInput">
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const loadEl = document.querySelector('#load');
+      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+      // // The Firebase SDK is initialized and available here!
+      //
+      // firebase.auth().onAuthStateChanged(user => { });
+      // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+      // firebase.firestore().doc('/foo/bar').get().then(() => { });
+      // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+      // firebase.messaging().requestPermission().then(() => { });
+      // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+      // firebase.analytics(); // call to activate
+      // firebase.analytics().logEvent('tutorial_completed');
+      // firebase.performance(); // call to activate
+      //
+      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+      try {
+        let app = firebase.app();
+        let features = [
+          'auth',
+          'database',
+          'firestore',
+          'functions',
+          'messaging',
+          'storage',
+          'analytics',
+          'remoteConfig',
+          'performance',
+
+        ].filter(feature => typeof app[feature] === 'function');
+        loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+      } catch (e) {
+        console.error(e);
+        loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+      }
+    });
+
+  </script>
+
+</body>
+
+</html>

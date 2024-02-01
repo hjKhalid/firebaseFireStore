@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "default": "firestore-project-fb16d",
+    "firestore": "firststore-f0a03",
+    "staging": "firststore-f0a03"
+  },
+  "targets": {},
+  "etags": {}
+}
