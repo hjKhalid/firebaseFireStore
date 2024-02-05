@@ -60,7 +60,8 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.2/firebase
 import { getFirestore, collection, getDocs, addDoc } from "https://www.gstatic.com/firebasejs/10.7.2/firebase-firestore.js"
 
 // import { getFirestore } from "firebase/firestore";
-
+var globalpath = "";
+let fetchData = []
 const firebaseConfig = {
   apiKey: "AIzaSyCNqAJvz1-W2rfu3RUni8I80k0VyxILxpw",
   authDomain: "firststore-f0a03.firebaseapp.com",
@@ -88,17 +89,9 @@ console.log(querySnapshot);
 querySnapshot.forEach((doc) => {
   console.log(`${doc.id} => ${doc.data()}`);
 });
-var details =[];
-const colref = collection(db,"user");
-getDocs(colref).then((snapshot)=>{
-  let book = []
-  snapshot.docs.forEach((doc)=>{
-  book.push({...doc.data()})
-  })
-  // book = details
-  console.log(book);
-})
-console.log(details);
+var details = [];
+
+// console.log(details);
 //////////////////////////////////////////////////////////////////////////////
 //initiaize UI and logic.
 //////////////////////////////////////////////////////////////////////////////
@@ -115,26 +108,96 @@ document.getElementById('goButton').addEventListener('click', function () {
   document.getElementById('deleteDoc').style.display = 'none';
   document.getElementById('copyDoc').style.display = 'none';
   document.getElementById('pasteDoc').style.display = 'none';
+  globalpath = path
 
-
-
+  console.log(path);
   if (path) {
     // Determine if the path is for a collection or a document
     const pathSegments = path.split('/');
     if (pathSegments.length % 2 === 0) {
       // Even number of segments in the path; it's a document
-      loadDocument(path);
+      // loadDocument(path);
       console.log(`path` + path);
     } else {
       // Odd number of segments in the path; it's a collection
-      loadCollection(path);
+      // loadCollection(path);
     }
   } else {
     alert('Please enter a Firestore path.');
   }
+  const colref = collection(db, globalpath);
+
+  (async () => {
+    try {
+      const snapshot = await getDocs(colref);
+      let fetchData = [];
+
+      snapshot.docs.forEach((doc) => {
+        fetchData.push({ ...doc.data() });
+      });
+
+      console.log(fetchData);
+
+      const outputElement = document.getElementById('firestoreContent');
+      outputElement.innerHTML = fetchData.map((details, i) => {
+        return `<p>${JSON.stringify(details)}</p>`; // Assuming details is an object
+      }).join(''); // Join the array of strings to form a single HTML string
+
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  })();
+
 });
 
+console.log(fetchData);
+// document.getElementById("firestoreContent").innerHTML=`<div></div>`
+// const userDetailsContainer = document.getElementById("firestoreContent").innerHTML +=`<p>${khla}</p>`;
+// console.log(userDetailsContainer);
 
+// fetchData.forEach((user, id) => {
+//   const userDiv = document.createElement("div");
+//   userDiv.innerHTML = `<p>Name: ${user.first} ${user.last}</p>
+//                        <p>Born: ${user.born}</p>`;
+//   userDetailsContainer.appendChild(userDiv);
+//   console.log(userDiv);
+// });
+let arrayOfObjects = [
+  { key1: 'value1', key2: 'value2' },
+  { key3: 'value3', key4: 'value4' },
+  // ... (other objects)
+];
+
+// Function to convert object to an HTML string
+// function objectToHtmlString(obj) {
+//   let result = '<ul>';
+//   for (const key in obj) {
+//     if (obj.hasOwnProperty(key)) {
+//       result += `<li><strong>${key}:</strong> ${obj[key]}</li>`;
+//     }
+//   }
+//   result += '</ul>';
+//   return result;
+// }
+
+// Display objects in the HTML <div> tag
+
+
+// document.getElementById("firestoreContent").innerHTML = `<div>${fetchData.map((details, id) => {
+//   return `<div key=${id}>${details}</div>`;
+// }).join('')}</div>`;
+// document.getElementById("firestoreContent").innerHTML = `<div>${fetchData.map((details, id) => {
+//   return `<div key=${id}>
+//             <p>First: ${details.first}</p>
+//             <p>Last: ${details.last}</p>
+//             <p>Born: ${details.born}</p>
+//           </div>`;
+// }).join('')}</div>`;
+
+
+
+console.log(globalpath);
+console.log(fetchData);
 //////////////////////////////////////////////////////////////////////////////
 //Collection
 //////////////////////////////////////////////////////////////////////////////
@@ -212,7 +275,7 @@ function loadDocument(path) {
       return;
     }
 
-    Object.keys(data).forEach(key => {
+    Object.keys(fetchData).forEach(key => {
       // Create a container div for each field
       const fieldDiv = document.createElement('div');
       fieldDiv.className = 'field-container'; // Optional: for styling purposes
